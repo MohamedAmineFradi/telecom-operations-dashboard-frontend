@@ -85,6 +85,63 @@ class ApiClient {
   async getNetworkStats(): Promise<NetworkStats> {
     return this.fetch<NetworkStats>(`/stats`)
   }
+
+  // Stream slot (trigger data ingestion)
+  async streamSlot(datetime?: string): Promise<{ slotDatetime: string; sentEvents: number }> {
+    const query = datetime ? `?datetime=${encodeURIComponent(datetime)}` : ''
+    return this.fetch<{ slotDatetime: string; sentEvents: number }>(
+      `/stream/slot${query}`,
+      { method: 'POST' }
+    )
+  }
 }
 
 export const api = new ApiClient()
+
+// ============================================
+// React Query Hooks
+// ============================================
+import { useQuery, useMutation, useQueryClient, UseQueryResult, UseMutationResult } from '@tanstack/react-query'
+
+/**
+ * Hook for fetching heatmap data
+ */
+export function useHeatmap(datetime: string): UseQueryResult<HeatmapCell[], Error> {
+  return useQuery({
+    queryKey: ['heatmap', datetime],
+    queryFn: () => api.getHeatmap(datetime),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  })
+}
+
+/**
+ * Hook for fetching top cells
+ */
+export function useTopCells(datetime: string, limit = 10): UseQueryResult<TopCellDto[], Error> {
+  return useQuery({
+    queryKey: ['topCells', datetime, limit],
+    queryFn: () => api.getTopCells(datetime, limit),
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  })
+}
+
+/**
+ * Hook for streaming slot data (triggers data refresh)
+ */
+export function useStreamSlot(): UseMutationResult<
+  { slotDatetime: string; sentEvents: number },
+  Error,
+  string | undefined,
+  unknown
+> {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (datetime?: string) => api.streamSlot(datetime),
+    onSuccess: () => {
+      // Invalidate all queries to refresh data
+      queryClient.invalidateQueries({ queryKey: ['heatmap'] })
+      queryClient.invalidateQueries({ queryKey: ['topCells'] })
+      queryClient.invalidateQueries({ queryKey: ['stats'] })
+    },
+  })
+}
