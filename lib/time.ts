@@ -1,0 +1,3 @@
+export const DATA_START_ISO = '2013-11-01T00:00:00Z'
+export const DATA_END_ISO = '2013-11-08T00:00:00Z'
+export const DEFAULT_HOUR_ISO = '2013-11-01T00:00:00Z'
