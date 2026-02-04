@@ -1,36 +1,199 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Milan Telecom Operations Dashboard - Frontend
 
-## Getting Started
+A modern Next.js dashboard for monitoring and analyzing telecom network operations in Milan, featuring real-time data visualization, anomaly detection, and comprehensive network analytics.
 
-First, run the development server:
+## Architecture
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Tech Stack
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: React Query (@tanstack/react-query)
+- **Authentication**: Keycloak
+- **Visualization**: Recharts, OpenLayers
+- **Theme**: next-themes (Dark mode)
+
+### Project Structure
+
+```
+├── app/
+│   ├── layout.tsx              # Root layout (theme + providers)
+│   ├── page.tsx                # Landing / login page
+│   ├── dashboard/
+│   │   ├── layout.tsx          # Dashboard sidebar + header
+│   │   ├── page.tsx            # Network overview
+│   │   ├── heatmap/
+│   │   │   └── page.tsx        # Spatial heatmap view
+│   │   ├── alerts/
+│   │   │   └── page.tsx        # Network alerts
+│   │   ├── cells/
+│   │   │   └── page.tsx        # Cell analytics
+│   │   ├── mobility/
+│   │   │   └── page.tsx        # Mobility patterns
+│   │   └── cell/
+│   │       └── [id]/page.tsx   # Cell detail view
+├── lib/
+│   ├── api.ts                  # API client (React Query)
+│   ├── keycloak.ts             # Authentication provider
+│   └── types.ts                # TypeScript DTOs
+├── components/
+│   ├── ui/                     # Reusable UI components
+│   │   └── KpiCard.tsx
+│   ├── dashboard/              # Dashboard-specific components
+│   │   ├── KpiGrid.tsx
+│   │   ├── HeatmapPreview.tsx
+│   │   ├── RecentAlerts.tsx
+│   │   └── CellTimeseries.tsx
+│   └── layout/                 # Layout components
+│       ├── Header.tsx
+│       └── Sidebar.tsx
+└── styles/
+    └── globals.css             # Tailwind + dark theme
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Dashboard Methodology (Tamara Munzner)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Following the **Four-Level Nested Model** for visualization design:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Task** → Monitor, predict, alert
+2. **Data** → Milan grid CDR (spatial + temporal)
+3. **View** → 
+   - Spatial: Heatmap (OpenLayers)
+   - Temporal: Line charts (Recharts)
+   - KPIs: Cards
+4. **Encode** → Color saturation = traffic, size = anomaly score
 
-## Learn More
+##  Getting Started
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Node.js 18+ 
+- npm or yarn
+- Backend API running (default: http://localhost:8080)
+- Keycloak instance (default: http://localhost:8081)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd telecom-operations-dashboard-frontend
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Configure environment**
+   ```bash
+   cp .env.example .env.local
+   ```
+   
+   Update `.env.local` with your configuration:
+   ```env
+   NEXT_PUBLIC_API_URL=http://localhost:8080/api
+   NEXT_PUBLIC_KEYCLOAK_URL=http://localhost:8081
+   NEXT_PUBLIC_KEYCLOAK_REALM=telecom
+   NEXT_PUBLIC_KEYCLOAK_CLIENT_ID=dashboard-client
+   ```
+
+4. **Run development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open browser**
+   Navigate to [http://localhost:3000](http://localhost:3000)
+
+## 📦 Key Dependencies
+
+Install the required packages:
+
+```bash
+npm install @tanstack/react-query next-themes keycloak-js recharts ol
+```
+
+
+## 🎯 Pages Overview
+
+### Dashboard Home (`/dashboard`)
+- Network overview with KPI cards
+- Heatmap preview
+- Recent alerts
+- Cell activity timeline
+
+### Heatmap (`/dashboard/heatmap`)
+- Full spatial visualization of network activity
+- Interactive map with cell details
+- Time-based filtering
+
+### Alerts (`/dashboard/alerts`)
+- Active and resolved alerts
+- Severity-based filtering
+- Alert resolution workflow
+
+### Cell Analytics (`/dashboard/cells`)
+- Table view of all cells
+- Performance metrics
+- Quick access to cell details
+
+### Mobility (`/dashboard/mobility`)
+- User movement patterns
+- Flow visualization
+- Top mobility routes
+
+### Cell Details (`/dashboard/cell/[id]`)
+- Detailed metrics for specific cell
+- Historical activity timeline
+- Associated alerts
+
+## 🔧 Development
+
+### Building for Production
+
+```bash
+npm run build
+npm run start
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+### Type Checking
+
+```bash
+npx tsc --noEmit
+```
+
+## 🌐 API Integration
+
+The frontend connects to a backend API with the following endpoints:
+
+- `GET /api/heatmap?timestamp={iso8601}` - Heatmap data
+- `GET /api/cells/top?timestamp={iso8601}&limit={n}` - Top cells
+- `GET /api/cells/{id}` - Cell details
+- `GET /api/cells/{id}/timeseries` - Time series data
+- `GET /api/alerts?resolved={boolean}` - Alerts
+- `POST /api/alerts/{id}/resolve` - Resolve alert
+- `GET /api/mobility?timestamp={iso8601}` - Mobility flows
+- `GET /api/stats?timestamp={iso8601}` - Network statistics
+
+## 🎨 Design System
+
+### Colors
+- **Background**: `slate-900` to `slate-800` gradient
+- **Cards**: `slate-800/50` with backdrop blur
+- **Borders**: `slate-700`
+- **Accents**: `blue-400` to `purple-500` gradient
+- **Status**: Red, Orange, Yellow, Blue, Green
+
+### Typography
+- **Headings**: Bold, gradient text
+- **Body**: `slate-200` to `slate-400`
+- **Labels**: `slate-400` uppercase
+
+
