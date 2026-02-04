@@ -106,7 +106,7 @@ Following the **Four-Level Nested Model** for visualization design:
 5. **Open browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-## 📦 Key Dependencies
+##  Key Dependencies
 
 Install the required packages:
 
@@ -115,7 +115,7 @@ npm install @tanstack/react-query next-themes keycloak-js recharts ol
 ```
 
 
-## 🎯 Pages Overview
+##  Pages Overview
 
 ### Dashboard Home (`/dashboard`)
 - Network overview with KPI cards
@@ -148,7 +148,7 @@ npm install @tanstack/react-query next-themes keycloak-js recharts ol
 - Historical activity timeline
 - Associated alerts
 
-## 🔧 Development
+##  Development
 
 ### Building for Production
 
@@ -169,7 +169,7 @@ npm run lint
 npx tsc --noEmit
 ```
 
-## 🌐 API Integration
+##  API Integration
 
 The frontend connects to a backend API with the following endpoints:
 
@@ -182,7 +182,7 @@ The frontend connects to a backend API with the following endpoints:
 - `GET /api/mobility?timestamp={iso8601}` - Mobility flows
 - `GET /api/stats?timestamp={iso8601}` - Network statistics
 
-## 🎨 Design System
+##  Design System
 
 ### Colors
 - **Background**: `slate-900` to `slate-800` gradient
