@@ -39,7 +39,11 @@ export default function CellDetailPage({
       <div>
         <h1 className="text-3xl font-bold text-slate-100">Cell {cellId} Details</h1>
         <p className="text-slate-400 mt-2">
-          Square {cellDetails.squareId} • Coordinates: {cellDetails.latitude.toFixed(4)}, {cellDetails.longitude.toFixed(4)}
+          {cellDetails.squareId && `Square ${cellDetails.squareId} • `}
+          {cellDetails.latitude && cellDetails.longitude 
+            ? `Coordinates: ${cellDetails.latitude.toFixed(4)}, ${cellDetails.longitude.toFixed(4)}`
+            : 'Location data unavailable'
+          }
         </p>
       </div>
 
@@ -47,15 +51,21 @@ export default function CellDetailPage({
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
           <h3 className="text-sm font-medium text-slate-400 mb-1">Total Activity</h3>
-          <p className="text-3xl font-bold text-slate-100">{cellDetails.currentLoad.toFixed(1)}%</p>
+          <p className="text-3xl font-bold text-slate-100">
+            {cellDetails.currentLoad ? cellDetails.currentLoad.toFixed(1) : 'N/A'}%
+          </p>
         </div>
         <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
           <h3 className="text-sm font-medium text-slate-400 mb-1">Average Load</h3>
-          <p className="text-3xl font-bold text-slate-100">{cellDetails.averageLoad.toFixed(1)}%</p>
+          <p className="text-3xl font-bold text-slate-100">
+            {cellDetails.averageLoad ? cellDetails.averageLoad.toFixed(1) : 'N/A'}%
+          </p>
         </div>
         <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
           <h3 className="text-sm font-medium text-slate-400 mb-1">Active Alerts</h3>
-          <p className="text-3xl font-bold text-slate-100">{cellDetails.alerts.length}</p>
+          <p className="text-3xl font-bold text-slate-100">
+            {cellDetails.alerts?.length || 0}
+          </p>
         </div>
       </div>
 
@@ -63,12 +73,14 @@ export default function CellDetailPage({
       <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-slate-200 mb-4">Activity Timeline</h3>
         <div className="h-64 bg-slate-900 rounded-lg flex items-center justify-center">
-          <p className="text-slate-500">Time series chart (Recharts) - {cellDetails.timeseries.length} data points</p>
+          <p className="text-slate-500">
+            Time series chart (Recharts) - {cellDetails.timeseries?.length || 0} data points
+          </p>
         </div>
       </div>
 
       {/* Alerts */}
-      {cellDetails.alerts.length > 0 && (
+      {cellDetails.alerts && cellDetails.alerts.length > 0 && (
         <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
           <h3 className="text-lg font-semibold text-slate-200 mb-4">Recent Alerts</h3>
           <div className="space-y-2">
