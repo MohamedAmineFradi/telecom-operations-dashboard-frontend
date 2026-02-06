@@ -11,10 +11,7 @@ export default function CellDetailPage({
   const resolvedParams = use(params)
   const cellId = parseInt(resolvedParams.id)
 
-  const { data: cellDetails, isLoading } = useQuery({
-    queryKey: ['cell', cellId],
-    queryFn: () => api.getCellDetails(cellId)
-  })
+  const { data: cellDetails, isLoading } = useCellDetails(cellId)
 
   if (isLoading) {
     return (

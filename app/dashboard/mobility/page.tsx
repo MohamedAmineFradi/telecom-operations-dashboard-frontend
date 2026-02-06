@@ -3,10 +3,7 @@
 import { useMobilityFlows } from '@/lib/hooks'
 
 export default function MobilityPage() {
-  const { data: flows, isLoading } = useQuery({
-    queryKey: ['mobility'],
-    queryFn: () => api.getMobilityFlows()
-  })
+  const { data: flows, isLoading } = useMobilityFlows()
 
   // Calculate statistics
   const totalFlows = flows?.reduce((sum, f) => sum + f.flow, 0) || 0

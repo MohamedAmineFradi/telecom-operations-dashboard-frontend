@@ -8,10 +8,7 @@ import { DEFAULT_HOUR_ISO } from '@/lib/time'
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)
 
-  const { data: topCells, isLoading } = useQuery({
-    queryKey: ['top-cells', timestamp],
-    queryFn: () => api.getTopCells(timestamp, 50)
-  })
+  const { data: topCells, isLoading } = useTopCells(timestamp, 50)
 
   return (
     <div className="space-y-6">
