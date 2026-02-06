@@ -1,6 +1,6 @@
 'use client'
 
-import { useHeatmap, useTopCells, useStreamSlot } from '@/lib/api'
+import { useHeatmap, useTopCells, useStreamSlot } from '@/lib/hooks'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
 import KpiGrid from '@/components/dashboard/KpiGrid'
 import HeatmapPreview from '@/components/dashboard/HeatmapPreview'

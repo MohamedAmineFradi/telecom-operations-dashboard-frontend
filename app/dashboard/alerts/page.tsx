@@ -1,19 +1,12 @@
 'use client'
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useQuery } from '@tanstack/react-query'
+import { useResolveAlert, useAlerts } from '@/lib/hooks'
 import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
 
 function AlertCard({ alert }: { alert: Alert }) {
-  const queryClient = useQueryClient()
-
-  const resolveMutation = useMutation({
-    mutationFn: (alertId: string) => api.resolveAlert(alertId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['alerts'] })
-    }
-  })
+  const resolveMutation = useResolveAlert()
 
   const severityColors = {
     low: 'border-blue-500/30 bg-blue-500/10',
@@ -60,10 +53,7 @@ function AlertCard({ alert }: { alert: Alert }) {
 }
 
 export default function AlertsPage() {
-  const { data: alerts, isLoading } = useQuery({
-    queryKey: ['alerts', DATA_START_ISO],
-    queryFn: () => api.getAlerts(DATA_START_ISO)
-  })
+  const { data: alerts, isLoading } = useAlerts(DATA_START_ISO)
 
   const activeAlerts = (alerts || []).filter((alert) => !alert.resolved)
   const resolvedAlerts = (alerts || []).filter((alert) => alert.resolved)

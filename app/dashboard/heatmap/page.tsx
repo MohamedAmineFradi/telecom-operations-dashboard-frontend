@@ -1,7 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useHeatmap } from '@/lib/hooks'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
 import 'ol/ol.css'
@@ -22,10 +21,7 @@ export default function HeatmapPage() {
   const heatmapLayerRef = useRef<HeatmapLayer | null>(null)
   const [hasCoordinates, setHasCoordinates] = useState(true)
 
-  const { data: heatmap, isLoading } = useQuery({
-    queryKey: ['heatmap', timestamp],
-    queryFn: () => api.getHeatmap(timestamp)
-  })
+  const { data: heatmap, isLoading } = useHeatmap(timestamp)
 
   const maxActivity = useMemo(() => {
     if (!heatmap || heatmap.length === 0) return 1

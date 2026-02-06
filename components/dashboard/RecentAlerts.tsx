@@ -1,31 +1,16 @@
 'use client'
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useAlerts, useResolveAlert } from '@/lib/hooks'
 import Link from 'next/link'
 import { DATA_START_ISO } from '@/lib/time'
 import { useState } from 'react'
 
 export default function RecentAlerts() {
   const [resolvingId, setResolvingId] = useState<string | null>(null)
-  const queryClient = useQueryClient()
 
-  const { data: alerts, isLoading } = useQuery({
-    queryKey: ['alerts', DATA_START_ISO],
-    queryFn: () => api.getAlerts(DATA_START_ISO),
-    refetchInterval: 15000, // Auto-refresh every 15 seconds for real-time updates
-  })
+  const { data: alerts, isLoading } = useAlerts(DATA_START_ISO)
 
-  const resolveMutation = useMutation({
-    mutationFn: (alertId: string) => api.resolveAlert(alertId),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['alerts'] })
-      setResolvingId(null)
-    },
-    onError: () => {
-      setResolvingId(null)
-    }
-  })
+  const resolveMutation = useResolveAlert()
 
   const activeAlerts = (alerts || []).filter((alert) => !alert.resolved)
   const criticalCount = activeAlerts.filter(a => a.severity === 'critical').length

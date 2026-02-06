@@ -1,7 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useCellTimeseries } from '@/lib/hooks'
 import Link from 'next/link'
 import { DATA_START_ISO, DATA_END_ISO } from '@/lib/time'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
@@ -15,11 +14,7 @@ export default function CellTimeseries({ cellId }: CellTimeseriesProps) {
   const startTime = DATA_START_ISO
   const endTime = DATA_END_ISO
 
-  const { data: timeseries, isLoading } = useQuery({
-    queryKey: ['timeseries', cellId, startTime, endTime],
-    queryFn: () => api.getCellTimeseries(cellId, startTime, endTime),
-    refetchInterval: 30000, // Auto-refresh every 30 seconds
-  })
+  const { data: timeseries, isLoading } = useCellTimeseries(cellId, startTime, endTime)
 
   // Transform data for Recharts
   const chartData = useMemo(() => {

@@ -1,7 +1,6 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { api } from '@/lib/api'
+import { useTopCells } from '@/lib/hooks'
 import Link from 'next/link'
 import { useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
