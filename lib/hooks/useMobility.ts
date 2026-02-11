@@ -1,13 +1,22 @@
-// Mobility hooks
+'use client'
 
-import { useQuery, UseQueryResult } from '@tanstack/react-query'
-import type { MobilityFlow } from '@/lib/types'
-import { mobilityApi } from '@/lib/api/mobility'
+import { useQuery } from '@tanstack/react-query';
+import { mobilityApi } from '@/lib/api/mobility';
 
-export function useMobilityFlows(): UseQueryResult<MobilityFlow[], Error> {
+export function useMobilityFlows(hour: string, cellId?: number, provincia?: string) {
   return useQuery({
-    queryKey: ['mobilityFlows'],
-    queryFn: () => mobilityApi.getMobilityFlows(),
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
+    queryKey: ['mobilityFlows', hour, cellId, provincia],
+    queryFn: () => mobilityApi.getMobilityFlowsAtHour(hour, cellId, provincia),
+    enabled: !!hour,
+    staleTime: 1000 * 60 * 5,
+  });
+}
+
+export function useProvinceSummaries(hour: string, provincia?: string) {
+  return useQuery({
+    queryKey: ['provinceSummaries', hour, provincia],
+    queryFn: () => mobilityApi.getProvinceSummariesAtHour(hour, provincia),
+    enabled: !!hour,
+    staleTime: 1000 * 60 * 5,
+  });
 }

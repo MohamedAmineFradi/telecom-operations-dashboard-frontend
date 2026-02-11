@@ -24,3 +24,10 @@ export function useCellTimeseries(
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
 }
+
+export function useGridCells() {
+  return useQuery({
+    queryKey: ['gridCells'],
+    queryFn: () => cellApi.getAllCells(),
+  })
+}

@@ -12,11 +12,11 @@ export function useAlerts(since?: string): UseQueryResult<Alert[], Error> {
   })
 }
 
-export function useResolveAlert(): UseMutationResult<void, Error, string, unknown> {
+export function useResolveAlert(): UseMutationResult<void, Error, string | number, unknown> {
   const queryClient = useQueryClient()
-  
+
   return useMutation({
-    mutationFn: (alertId: string) => alertsApi.resolveAlert(alertId),
+    mutationFn: (alertId: string | number) => alertsApi.resolveAlert(alertId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['alerts'] })
     },
