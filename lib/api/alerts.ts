@@ -9,8 +9,8 @@ export class AlertsApiClient extends BaseApiClient {
     return this.fetch<Alert[]>(`/alerts${query}`)
   }
 
-  async resolveAlert(alertId: string): Promise<void> {
-    await this.fetch<void>(`/alerts/${alertId}/resolve`, {
+  async resolveAlert(alertId: string | number): Promise<void> {
+    await this.fetch<void>(`/alerts/${alertId.toString()}/resolve`, {
       method: 'POST',
     })
   }

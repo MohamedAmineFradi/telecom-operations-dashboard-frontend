@@ -8,6 +8,10 @@ export class CellApiClient extends BaseApiClient {
     return this.fetch<CellDetails>(`/cells/${cellId}`)
   }
 
+  async getAllCells(): Promise<any[]> {
+    return this.fetch<any[]>('/cells')
+  }
+
   async getCellTimeseries(
     cellId: number,
     from: string,
