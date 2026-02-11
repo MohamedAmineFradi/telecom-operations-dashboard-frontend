@@ -1,11 +1,10 @@
 interface AlertBadgeProps {
-  count: number
+  children?: React.ReactNode
+  count?: number
   severity: 'critical' | 'high' | 'medium' | 'low'
 }
 
-export default function AlertBadge({ count, severity }: AlertBadgeProps) {
-  if (count === 0) return null
-
+export default function AlertBadge({ children, count, severity }: AlertBadgeProps) {
   const colors = {
     critical: 'bg-red-500/20 text-red-400 border-red-500/50',
     high: 'bg-orange-500/20 text-orange-400 border-orange-500/50',
@@ -14,8 +13,8 @@ export default function AlertBadge({ count, severity }: AlertBadgeProps) {
   }
 
   return (
-    <span className={`px-2 py-1 text-xs font-medium border rounded ${colors[severity]}`}>
-      {count} {severity.charAt(0).toUpperCase() + severity.slice(1)}
+    <span className={`px-2 py-0.5 text-[10px] font-black uppercase tracking-widest border rounded-full backdrop-blur-md ${colors[severity]}`}>
+      {children || (count !== undefined ? `${count} ${severity}` : severity)}
     </span>
   )
 }
