@@ -3,6 +3,7 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 import { KeycloakProvider } from '@/lib/keycloak'
+import { RoleProvider } from '@/lib/role-context'
 import { useState } from 'react'
 import "./globals.css"
 
@@ -26,9 +27,11 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="dark">
           <QueryClientProvider client={queryClient}>
             <KeycloakProvider>
-              <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-                {children}
-              </div>
+              <RoleProvider>
+                <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+                  {children}
+                </div>
+              </RoleProvider>
             </KeycloakProvider>
           </QueryClientProvider>
         </ThemeProvider>
