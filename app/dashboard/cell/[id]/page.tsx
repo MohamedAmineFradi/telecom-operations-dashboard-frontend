@@ -36,8 +36,8 @@ export default function CellDetailPage({
         <h1 className="text-3xl font-bold text-slate-100">Cell {cellId} Details</h1>
         <p className="text-slate-400 mt-2">
           {cellDetails.squareId && `Square ${cellDetails.squareId} • `}
-          {cellDetails.latitude && cellDetails.longitude 
-            ? `Coordinates: ${cellDetails.latitude.toFixed(4)}, ${cellDetails.longitude.toFixed(4)}`
+          {cellDetails.centroidY && cellDetails.centroidX
+            ? `Coordinates: ${cellDetails.centroidY.toFixed(4)}, ${cellDetails.centroidX.toFixed(4)}`
             : 'Location data unavailable'
           }
         </p>
@@ -89,12 +89,11 @@ export default function CellDetailPage({
                       {new Date(alert.timestamp).toLocaleString()}
                     </p>
                   </div>
-                  <span className={`px-2 py-1 text-xs rounded-full ${
-                    alert.severity === 'critical' ? 'bg-red-500 text-white' :
-                    alert.severity === 'high' ? 'bg-orange-500 text-white' :
-                    alert.severity === 'medium' ? 'bg-yellow-500 text-slate-900' :
-                    'bg-blue-500 text-white'
-                  }`}>
+                  <span className={`px-2 py-1 text-xs rounded-full ${alert.severity === 'critical' ? 'bg-red-500 text-white' :
+                      alert.severity === 'high' ? 'bg-orange-500 text-white' :
+                        alert.severity === 'medium' ? 'bg-yellow-500 text-slate-900' :
+                          'bg-blue-500 text-white'
+                    }`}>
                     {alert.severity}
                   </span>
                 </div>
