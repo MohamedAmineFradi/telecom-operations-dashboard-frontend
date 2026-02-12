@@ -3,6 +3,7 @@
 import { useKeycloak } from '@/lib/keycloak'
 import { useRole } from '@/lib/role-context'
 import { UserRole } from '@/lib/types'
+import { useRouter, usePathname } from 'next/navigation'
 
 function StatusBadge({ label, color }: { label: string; color: string }) {
   const colorClasses = {
@@ -21,11 +22,24 @@ function StatusBadge({ label, color }: { label: string; color: string }) {
 export default function Header() {
   const { keycloak } = useKeycloak()
   const { role, setRole } = useRole()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handleRoleChange = (newRole: UserRole) => {
+    setRole(newRole)
+    // Redirect to the new role dashboard if on a dashboard page
+    if (pathname?.startsWith('/dashboard')) {
+      router.push(`/dashboard/${newRole}`)
+    }
+  }
 
   const roles: { id: UserRole; label: string; icon: string }[] = [
     { id: 'director', label: 'Director', icon: '💎' },
-    { id: 'network_engineer', label: 'Network Engineer', icon: '🔧' },
+    { id: 'network_engineer', label: 'Engineer', icon: '🔧' },
     { id: 'sys_admin', label: 'Sys Admin', icon: '🛡️' },
+    { id: 'network_operator', label: 'Operator', icon: '📡' },
+    { id: 'performance_engineer', label: 'Performance', icon: '📊' },
+    { id: 'operations_manager', label: 'Manager', icon: '📋' },
   ]
 
   return (
@@ -44,14 +58,13 @@ export default function Header() {
         </div>
 
         <div className="flex items-center space-x-6">
-          {/* Role Selector */}
-          <div className="flex items-center bg-slate-900/50 rounded-full p-1 border border-white/5 shadow-inner">
+        <div className="flex items-center bg-slate-900/50 rounded-full p-1 border border-white/5 shadow-inner overflow-x-auto">
             {roles.map((r) => (
               <button
                 key={r.id}
-                onClick={() => setRole(r.id)}
+                onClick={() => handleRoleChange(r.id)}
                 title={r.label}
-                className={`flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 ${role === r.id
+                className={`flex items-center justify-center w-9 h-9 rounded-full transition-all duration-300 flex-shrink-0 ${role === r.id
                     ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-110'
                     : 'text-slate-500 hover:text-slate-300 hover:bg-white/5'
                   }`}
@@ -59,7 +72,7 @@ export default function Header() {
                 <span className="text-sm">{r.icon}</span>
               </button>
             ))}
-            <span className="text-xs px-3 font-bold text-slate-400 uppercase tracking-widest border-l border-white/10 ml-1 hidden sm:block">
+            <span className="text-xs px-3 font-bold text-slate-400 uppercase tracking-widest border-l border-white/10 ml-1 hidden lg:block whitespace-nowrap">
               {role.replace('_', ' ')}
             </span>
           </div>
