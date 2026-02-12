@@ -39,6 +39,27 @@ const rolePermissions: Record<UserRole, RoleContextType['permissions']> = {
         canViewAlerts: true,
         canViewAdmin: true,
     },
+    network_operator: {
+        canViewTraffic: true,
+        canViewCongestion: true,
+        canViewMobility: true,
+        canViewAlerts: true,
+        canViewAdmin: false,
+    },
+    performance_engineer: {
+        canViewTraffic: true,
+        canViewCongestion: true,
+        canViewMobility: true,
+        canViewAlerts: false,
+        canViewAdmin: false,
+    },
+    operations_manager: {
+        canViewTraffic: true,
+        canViewCongestion: true,
+        canViewMobility: false,
+        canViewAlerts: true,
+        canViewAdmin: false,
+    },
 };
 
 export function RoleProvider({ children }: { children: ReactNode }) {
@@ -47,7 +68,7 @@ export function RoleProvider({ children }: { children: ReactNode }) {
 
     useEffect(() => {
         const savedRole = localStorage.getItem('user-role') as UserRole;
-        if (savedRole && ['director', 'network_engineer', 'sys_admin'].includes(savedRole)) {
+        if (savedRole && ['director', 'network_engineer', 'sys_admin', 'network_operator', 'performance_engineer', 'operations_manager'].includes(savedRole)) {
             setRoleState(savedRole);
         }
     }, []);

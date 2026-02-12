@@ -1,6 +1,6 @@
 // DTOs for telecom dashboard based on backend definitions
 
-export type UserRole = 'director' | 'network_engineer' | 'sys_admin';
+export type UserRole = 'director' | 'network_engineer' | 'sys_admin' | 'network_operator' | 'performance_engineer' | 'operations_manager';
 
 export interface AlertDto {
   id: number;
