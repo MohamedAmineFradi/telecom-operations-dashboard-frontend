@@ -24,12 +24,12 @@ export function KeycloakProvider({ children }: { children: ReactNode }) {
   const [authenticated, setAuthenticated] = useState(false)
   const [loading, setLoading] = useState(true)
 
-  // Development mode bypass
-  const isDevelopment = process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_KEYCLOAK_BYPASS !== 'false'
-
   useEffect(() => {
-    if (isDevelopment && !process.env.NEXT_PUBLIC_KEYCLOAK_URL) {
-      // Skip Keycloak in development if not configured
+    // Development mode bypass - always skip Keycloak in development
+    const isDevelopment = process.env.NODE_ENV === 'development'
+    
+    if (isDevelopment) {
+      // Skip Keycloak in development mode
       console.warn('Keycloak not configured - running in development bypass mode')
       setAuthenticated(true)
       setLoading(false)
