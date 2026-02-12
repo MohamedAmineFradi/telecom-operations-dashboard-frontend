@@ -4,36 +4,19 @@ import React, { useState, useMemo } from 'react';
 import { useCongestion, useHourlySummary, useGenerateCongestionAlerts } from '@/lib/hooks/useCongestion';
 import { DEFAULT_HOUR_ISO } from '@/lib/time';
 import ProvinceMap3D from '@/components/three/ProvinceMap3D';
+import CongestionMap from '@/components/dashboard/CongestionMap';
+import NetworkMesh from '@/components/dashboard/NetworkMesh';
 import AlertBadge from '@/components/ui/AlertBadge';
 
 export default function CongestionPage() {
     const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO);
     const [warnThreshold, setWarnThreshold] = useState(70);
     const [critThreshold, setCritThreshold] = useState(90);
+    const [viewMode, setViewMode] = useState<'map' | 'mesh'>('map');
 
     const { data: congestionCells, isLoading } = useCongestion(timestamp, warnThreshold, critThreshold);
     const { data: summary } = useHourlySummary(timestamp);
     const generateAlerts = useGenerateCongestionAlerts();
-
-    // Mock province-level congestion data derived from cell data
-    const provinceCongestion = useMemo(() => {
-        // In a real app, this would come from a province-specific API
-        // Here we generate some interesting heat for the map
-        return {
-            'MI': 88,
-            'BG': 65,
-            'BS': 72,
-            'VA': 45,
-            'MB': 82,
-            'PV': 38,
-            'CR': 25,
-            'MN': 32,
-            'LO': 41,
-            'CO': 55,
-            'LC': 48,
-            'SO': 15
-        };
-    }, []);
 
     const overallScore = useMemo(() => {
         if (!congestionCells || congestionCells.length === 0) return 0;
@@ -57,7 +40,30 @@ export default function CongestionPage() {
                     <p className="text-slate-400 mt-2 font-medium">Real-time load balancing and anomaly thresholds</p>
                 </div>
 
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-3">
+                    <div className="bg-slate-800/50 backdrop-blur-md border border-white/5 p-1 rounded-2xl flex items-center">
+                        <button
+                            onClick={() => setViewMode('map')}
+                            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                                viewMode === 'map'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-transparent text-slate-400 hover:text-slate-200'
+                            }`}
+                        >
+                            📍 Geo Map
+                        </button>
+                        <button
+                            onClick={() => setViewMode('mesh')}
+                            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-widest transition-all ${
+                                viewMode === 'mesh'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'bg-transparent text-slate-400 hover:text-slate-200'
+                            }`}
+                        >
+                            🔗 Mesh
+                        </button>
+                    </div>
+
                     <div className="bg-slate-800/50 backdrop-blur-md border border-white/5 p-1 rounded-2xl flex items-center">
                         <input
                             type="datetime-local"
@@ -80,7 +86,7 @@ export default function CongestionPage() {
             </div>
 
             {/* Main Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 {/* Left: Controls & Stats */}
                 <div className="space-y-8">
                     {/* Overall Score Gauge */}
@@ -157,15 +163,23 @@ export default function CongestionPage() {
                     </div>
                 </div>
 
-                {/* Center: 3D Map */}
+                {/* Center: Interactive Map or Mesh */}
                 <div className="lg:col-span-2 bg-slate-900/50 backdrop-blur-sm border border-white/5 rounded-3xl overflow-hidden shadow-2xl relative min-h-[600px]">
-                    <div className="absolute top-6 left-6 z-10">
-                        <div className="bg-slate-950/40 backdrop-blur-md px-4 py-3 rounded-2xl border border-white/10">
-                            <h2 className="text-sm font-black text-white uppercase italic">Geospatial Load Mesh</h2>
-                            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter mt-1">Lombardy High-Frequency Cells</p>
-                        </div>
-                    </div>
-                    <ProvinceMap3D congestionData={provinceCongestion} className="w-full h-full" />
+                    {viewMode === 'map' ? (
+                        <CongestionMap
+                            congestionCells={congestionCells || []}
+                            warnThreshold={warnThreshold}
+                            critThreshold={critThreshold}
+                            className="w-full h-full"
+                        />
+                    ) : (
+                        <NetworkMesh
+                            congestionCells={congestionCells || []}
+                            warnThreshold={warnThreshold}
+                            critThreshold={critThreshold}
+                            className="w-full h-full"
+                        />
+                    )}
                 </div>
             </div>
 
