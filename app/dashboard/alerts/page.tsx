@@ -6,6 +6,7 @@ import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { StatCard } from '@/components/ui/StatCard'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()
@@ -70,30 +71,30 @@ export default function AlertsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
-          <p className="text-xs text-red-400 font-semibold uppercase mb-1">Critical</p>
-          <p className="text-2xl font-bold text-red-400">
-            {activeAlerts?.filter(a => a.severity === 'critical').length || 0}
-          </p>
-        </div>
-        <div className="bg-orange-500/10 border border-orange-500/30 rounded-lg p-4">
-          <p className="text-xs text-orange-400 font-semibold uppercase mb-1">High</p>
-          <p className="text-2xl font-bold text-orange-400">
-            {activeAlerts?.filter(a => a.severity === 'high').length || 0}
-          </p>
-        </div>
-        <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4">
-          <p className="text-xs text-yellow-400 font-semibold uppercase mb-1">Medium</p>
-          <p className="text-2xl font-bold text-yellow-400">
-            {activeAlerts?.filter(a => a.severity === 'medium').length || 0}
-          </p>
-        </div>
-        <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
-          <p className="text-xs text-blue-400 font-semibold uppercase mb-1">Low</p>
-          <p className="text-2xl font-bold text-blue-400">
-            {activeAlerts?.filter(a => a.severity === 'low').length || 0}
-          </p>
-        </div>
+        <StatCard
+          label="Critical"
+          value={activeAlerts?.filter(a => a.severity === 'critical').length || 0}
+          color="red"
+          variant="tinted"
+        />
+        <StatCard
+          label="High"
+          value={activeAlerts?.filter(a => a.severity === 'high').length || 0}
+          color="orange"
+          variant="tinted"
+        />
+        <StatCard
+          label="Medium"
+          value={activeAlerts?.filter(a => a.severity === 'medium').length || 0}
+          color="yellow"
+          variant="tinted"
+        />
+        <StatCard
+          label="Low"
+          value={activeAlerts?.filter(a => a.severity === 'low').length || 0}
+          color="blue"
+          variant="tinted"
+        />
       </div>
 
       {/* Active alerts */}

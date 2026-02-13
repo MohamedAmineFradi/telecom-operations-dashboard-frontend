@@ -7,6 +7,7 @@ import { DEFAULT_HOUR_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { Panel } from '@/components/ui/Panel'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { StatCard } from '@/components/ui/StatCard'
 
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)
@@ -23,22 +24,10 @@ export default function CellsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <Panel>
-          <h3 className="text-sm font-medium text-slate-400 mb-1">Total Cells</h3>
-          <p className="text-3xl font-bold text-slate-100">250</p>
-        </Panel>
-        <Panel>
-          <h3 className="text-sm font-medium text-slate-400 mb-1">Active Cells</h3>
-          <p className="text-3xl font-bold text-green-400">247</p>
-        </Panel>
-        <Panel>
-          <h3 className="text-sm font-medium text-slate-400 mb-1">Overloaded</h3>
-          <p className="text-3xl font-bold text-orange-400">12</p>
-        </Panel>
-        <Panel>
-          <h3 className="text-sm font-medium text-slate-400 mb-1">Offline</h3>
-          <p className="text-3xl font-bold text-red-400">3</p>
-        </Panel>
+        <StatCard label="Total Cells" value={250} color="slate" />
+        <StatCard label="Active Cells" value={247} color="green" />
+        <StatCard label="Overloaded" value={12} color="orange" />
+        <StatCard label="Offline" value={3} color="red" />
       </div>
 
       {/* Cells table */}
