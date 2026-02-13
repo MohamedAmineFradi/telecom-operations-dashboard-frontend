@@ -4,6 +4,7 @@ import { useTopCells } from '@/lib/hooks'
 import Link from 'next/link'
 import { useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)
@@ -46,7 +47,7 @@ export default function CellsPage() {
 
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <LoadingSpinner size="md" variant="primary" />
           </div>
         ) : (
           <div className="overflow-x-auto">

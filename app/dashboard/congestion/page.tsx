@@ -7,6 +7,7 @@ import ProvinceMap3D from '@/components/three/ProvinceMap3D';
 import CongestionMap from '@/components/dashboard/CongestionMap';
 import NetworkMesh from '@/components/dashboard/NetworkMesh';
 import AlertBadge from '@/components/ui/AlertBadge';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 export default function CongestionPage() {
     const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO);
@@ -194,7 +195,7 @@ export default function CongestionPage() {
 
                 {isLoading ? (
                     <div className="p-20 flex justify-center">
-                        <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                        <LoadingSpinner size="lg" variant="primarySolid" />
                     </div>
                 ) : (
                     <div className="overflow-x-auto">

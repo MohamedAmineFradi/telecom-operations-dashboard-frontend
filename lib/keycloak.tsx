@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import Keycloak from 'keycloak-js'
+import { LoadingState } from '@/components/ui/LoadingState'
 
 interface KeycloakContextType {
   keycloak: Keycloak | null
@@ -72,12 +73,15 @@ export function KeycloakProvider({ children }: { children: ReactNode }) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-slate-900">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p className="text-slate-400">Authenticating...</p>
-        </div>
-      </div>
+      <LoadingState
+        fullScreen
+        containerClassName="bg-slate-900"
+        message="Authenticating..."
+        spinnerSize="lg"
+        spinnerVariant="primary"
+        spinnerClassName="mx-auto mb-4"
+        messageClassName="text-slate-400"
+      />
     )
   }
 

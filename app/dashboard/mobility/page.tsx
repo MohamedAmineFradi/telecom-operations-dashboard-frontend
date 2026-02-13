@@ -5,6 +5,7 @@ import { useProvinceSummaries, useMobilityFlows } from '@/lib/hooks/useMobility'
 import { DEFAULT_HOUR_ISO } from '@/lib/time';
 import { SURVEILLANCE_PROVINCES } from '@/lib/geo/lombardy-provinces';
 import ProvinceFlowCard from '@/components/dashboard/ProvinceFlowCard';
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 export default function MobilityPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO);
@@ -120,7 +121,7 @@ export default function MobilityPage() {
           <div className="flex-1 p-8 overflow-auto">
             {loadingFlows ? (
               <div className="h-full flex flex-col items-center justify-center space-y-4 opacity-50">
-                <div className="w-10 h-10 border-2 border-slate-700 border-t-blue-500 rounded-full animate-spin"></div>
+                <LoadingSpinner size="md" variant="subtle" className="h-10 w-10" />
                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.2em]">Intercepting Data Packets</span>
               </div>
             ) : detailedFlows && detailedFlows.length > 0 ? (

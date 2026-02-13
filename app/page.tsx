@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useKeycloak } from '@/lib/keycloak'
+import { LoadingState } from '@/components/ui/LoadingState'
 
 export default function Home() {
   const router = useRouter()
@@ -16,12 +17,14 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-500 mx-auto mb-6"></div>
-          <p className="text-slate-400 text-lg">Loading...</p>
-        </div>
-      </div>
+      <LoadingState
+        fullScreen
+        message="Loading..."
+        spinnerSize="xl"
+        spinnerVariant="primary"
+        spinnerClassName="mx-auto mb-6"
+        messageClassName="text-slate-400 text-lg"
+      />
     )
   }
 

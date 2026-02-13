@@ -3,6 +3,7 @@
 import { useHeatmap } from '@/lib/hooks'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
@@ -109,7 +110,7 @@ export default function HeatmapPage() {
       <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
         {isLoading ? (
           <div className="flex items-center justify-center h-96">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500"></div>
+            <LoadingSpinner size="lg" variant="primary" />
           </div>
         ) : (
           <div className="relative h-[600px] bg-slate-900 rounded-lg overflow-hidden">

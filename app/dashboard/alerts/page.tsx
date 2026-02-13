@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useResolveAlert, useAlerts } from '@/lib/hooks'
 import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
+import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()
@@ -99,7 +100,7 @@ export default function AlertsPage() {
         <h2 className="text-xl font-bold text-slate-200 mb-4">Active Alerts</h2>
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <LoadingSpinner size="md" variant="primary" />
           </div>
         ) : activeAlerts && activeAlerts.length > 0 ? (
           <div className="space-y-3">
@@ -119,7 +120,7 @@ export default function AlertsPage() {
         <h2 className="text-xl font-bold text-slate-200 mb-4">Recently Resolved</h2>
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+            <LoadingSpinner size="md" variant="primary" />
           </div>
         ) : resolvedAlerts && resolvedAlerts.length > 0 ? (
           <div className="space-y-3">
