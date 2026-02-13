@@ -14,6 +14,7 @@ import OSM from 'ol/source/OSM'
 import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
+import { Panel } from '@/components/ui/Panel'
 
 export default function HeatmapPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO)
@@ -107,7 +108,7 @@ export default function HeatmapPage() {
       </div>
 
       {/* Heatmap container */}
-      <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+      <Panel>
         {isLoading ? (
           <div className="flex items-center justify-center h-96">
             <LoadingSpinner size="lg" variant="primary" />
@@ -124,10 +125,10 @@ export default function HeatmapPage() {
             )}
           </div>
         )}
-      </div>
+      </Panel>
 
       {/* Legend */}
-      <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+      <Panel>
         <h3 className="text-sm font-semibold text-slate-300 mb-4">Traffic Legend</h3>
         <div className="flex items-center space-x-6">
           <div className="flex items-center space-x-2">
@@ -147,7 +148,7 @@ export default function HeatmapPage() {
             <span className="text-sm text-slate-400">Critical</span>
           </div>
         </div>
-      </div>
+      </Panel>
     </div>
   )
 }

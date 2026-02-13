@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { Panel } from '@/components/ui/Panel'
 
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)
@@ -21,26 +22,26 @@ export default function CellsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+        <Panel>
           <h3 className="text-sm font-medium text-slate-400 mb-1">Total Cells</h3>
           <p className="text-3xl font-bold text-slate-100">250</p>
-        </div>
-        <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+        </Panel>
+        <Panel>
           <h3 className="text-sm font-medium text-slate-400 mb-1">Active Cells</h3>
           <p className="text-3xl font-bold text-green-400">247</p>
-        </div>
-        <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+        </Panel>
+        <Panel>
           <h3 className="text-sm font-medium text-slate-400 mb-1">Overloaded</h3>
           <p className="text-3xl font-bold text-orange-400">12</p>
-        </div>
-        <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-6">
+        </Panel>
+        <Panel>
           <h3 className="text-sm font-medium text-slate-400 mb-1">Offline</h3>
           <p className="text-3xl font-bold text-red-400">3</p>
-        </div>
+        </Panel>
       </div>
 
       {/* Cells table */}
-      <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl overflow-hidden">
+      <Panel padding="none" className="overflow-hidden">
         <div className="p-6 border-b border-slate-700">
           <h2 className="text-lg font-semibold text-slate-200">Top Performing Cells</h2>
         </div>
@@ -106,7 +107,7 @@ export default function CellsPage() {
             </table>
           </div>
         )}
-      </div>
+      </Panel>
     </div>
   )
 }
