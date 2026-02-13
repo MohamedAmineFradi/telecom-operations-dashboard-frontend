@@ -16,6 +16,7 @@ import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 import { Panel } from '@/components/ui/Panel'
 import { PageHeader } from '@/components/ui/PageHeader'
+import { EmptyState } from '@/components/ui/EmptyState'
 
 export default function HeatmapPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO)
@@ -115,11 +116,12 @@ export default function HeatmapPage() {
           <div className="relative h-[600px] bg-slate-900 rounded-lg overflow-hidden">
             <div ref={mapContainerRef} className="absolute inset-0" />
             {!hasCoordinates && (
-              <div className="absolute inset-0 flex items-center justify-center bg-slate-900/70">
-                <p className="text-slate-400">
-                  No coordinates available for geospatial rendering.
-                </p>
-              </div>
+              <EmptyState
+                variant="ghost"
+                className="absolute inset-0 flex items-center justify-center bg-slate-900/70"
+                message="No coordinates available for geospatial rendering."
+                messageClassName="text-slate-400"
+              />
             )}
           </div>
         )}

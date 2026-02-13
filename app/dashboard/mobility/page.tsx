@@ -5,6 +5,7 @@ import { useProvinceSummaries, useMobilityFlows } from '@/lib/hooks/useMobility'
 import { DEFAULT_HOUR_ISO } from '@/lib/time';
 import { SURVEILLANCE_PROVINCES } from '@/lib/geo/lombardy-provinces';
 import ProvinceFlowCard from '@/components/dashboard/ProvinceFlowCard';
+import { EmptyState } from '@/components/ui/EmptyState';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 
 export default function MobilityPage() {
@@ -155,13 +156,15 @@ export default function MobilityPage() {
                 ))}
               </div>
             ) : (
-              <div className="h-full flex flex-col items-center justify-center space-y-6 opacity-30 text-center">
-                <div className="text-6xl text-slate-700">📡</div>
-                <div>
-                  <p className="text-sm font-black text-white uppercase italic">No active vectors detected</p>
-                  <p className="text-xs text-slate-500 font-medium">Try selecting a different temporal slot or coordinate</p>
-                </div>
-              </div>
+              <EmptyState
+                variant="ghost"
+                className="h-full flex flex-col items-center justify-center space-y-6 opacity-30"
+                icon={<div className="text-6xl text-slate-700">📡</div>}
+                message="No active vectors detected"
+                description="Try selecting a different temporal slot or coordinate"
+                messageClassName="text-sm font-black text-white uppercase italic"
+                descriptionClassName="text-xs text-slate-500 font-medium"
+              />
             )}
           </div>
 
