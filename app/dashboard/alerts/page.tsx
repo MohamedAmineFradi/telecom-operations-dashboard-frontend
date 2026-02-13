@@ -1,6 +1,5 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import { useResolveAlert, useAlerts } from '@/lib/hooks'
 import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
@@ -8,6 +7,7 @@ import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { StatCard } from '@/components/ui/StatCard'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()
@@ -61,6 +61,13 @@ export default function AlertsPage() {
 
   const activeAlerts = (alerts || []).filter((alert) => !alert.resolved)
   const resolvedAlerts = (alerts || []).filter((alert) => alert.resolved)
+  const activeCounts = activeAlerts.reduce(
+    (acc, alert) => {
+      acc[alert.severity] += 1
+      return acc
+    },
+    { critical: 0, high: 0, medium: 0, low: 0 }
+  )
 
   return (
     <div className="space-y-6">
@@ -74,25 +81,25 @@ export default function AlertsPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatCard
           label="Critical"
-          value={activeAlerts?.filter(a => a.severity === 'critical').length || 0}
+          value={activeCounts.critical}
           color="red"
           variant="tinted"
         />
         <StatCard
           label="High"
-          value={activeAlerts?.filter(a => a.severity === 'high').length || 0}
+          value={activeCounts.high}
           color="orange"
           variant="tinted"
         />
         <StatCard
           label="Medium"
-          value={activeAlerts?.filter(a => a.severity === 'medium').length || 0}
+          value={activeCounts.medium}
           color="yellow"
           variant="tinted"
         />
         <StatCard
           label="Low"
-          value={activeAlerts?.filter(a => a.severity === 'low').length || 0}
+          value={activeCounts.low}
           color="blue"
           variant="tinted"
         />
@@ -100,7 +107,7 @@ export default function AlertsPage() {
 
       {/* Active alerts */}
       <div>
-        <h2 className="text-xl font-bold text-slate-200 mb-4">Active Alerts</h2>
+        <SectionHeader title="Active Alerts" />
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
             <LoadingSpinner size="md" variant="primary" />
@@ -118,7 +125,7 @@ export default function AlertsPage() {
 
       {/* Resolved alerts */}
       <div>
-        <h2 className="text-xl font-bold text-slate-200 mb-4">Recently Resolved</h2>
+        <SectionHeader title="Recently Resolved" />
         {isLoading ? (
           <div className="flex items-center justify-center h-32">
             <LoadingSpinner size="md" variant="primary" />
