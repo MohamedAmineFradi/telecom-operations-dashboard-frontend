@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import SparklineChart from '@/components/ui/SparklineChart'
+import { SparklineChart } from '@/components/ui'
 
 interface ExecutiveKpiCardProps {
   title: string

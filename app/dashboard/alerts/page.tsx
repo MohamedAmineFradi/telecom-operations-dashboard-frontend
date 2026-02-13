@@ -3,11 +3,7 @@
 import { useResolveAlert, useAlerts } from '@/lib/hooks'
 import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { StatCard } from '@/components/ui/StatCard'
-import { EmptyState } from '@/components/ui/EmptyState'
-import { SectionHeader } from '@/components/ui/SectionHeader'
+import { EmptyState, LoadingSpinner, PageHeader, SectionHeader, StatCard } from '@/components/ui'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()

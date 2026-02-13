@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import GaugeChart from '@/components/ui/GaugeChart'
+import { GaugeChart } from '@/components/ui'
 
 interface SlaMetric {
   name: string

@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
 import Keycloak from 'keycloak-js'
-import { LoadingState } from '@/components/ui/LoadingState'
+import { LoadingState } from '@/components/ui'
 
 interface KeycloakContextType {
   keycloak: Keycloak | null

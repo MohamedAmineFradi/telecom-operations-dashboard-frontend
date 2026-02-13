@@ -1,9 +1,7 @@
 'use client'
 
 import { useCellDetails } from '@/lib/hooks'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { Panel } from '@/components/ui/Panel'
-import { PageHeader } from '@/components/ui/PageHeader'
+import { LoadingSpinner, PageHeader, Panel } from '@/components/ui'
 import { use } from 'react'
 
 export default function CellDetailPage({

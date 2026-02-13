@@ -1,5 +1,5 @@
 import type { TopCellDto } from '@/lib/types'
-import KpiCard from '@/components/ui/KpiCard'
+import { KpiCard } from '@/components/ui'
 
 interface KpiGridProps {
   data: TopCellDto[]

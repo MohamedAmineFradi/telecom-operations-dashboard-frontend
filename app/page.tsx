@@ -3,8 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useKeycloak } from '@/lib/keycloak'
-import { LoadingState } from '@/components/ui/LoadingState'
-import { Panel } from '@/components/ui/Panel'
+import { LoadingState, Panel } from '@/components/ui'
 
 export default function Home() {
   const router = useRouter()

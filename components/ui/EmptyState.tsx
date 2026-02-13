@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel } from '@/components/ui/Panel'
+import { Panel } from './Panel'
 
 type EmptyStateVariant = 'panel' | 'ghost'
 type EmptyStatePadding = 'none' | 'sm' | 'md' | 'lg'

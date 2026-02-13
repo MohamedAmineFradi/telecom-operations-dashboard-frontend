@@ -1,5 +1,5 @@
 import React from 'react'
-import { Panel } from '@/components/ui/Panel'
+import { Panel } from './Panel'
 
 type StatColor = 'red' | 'orange' | 'yellow' | 'blue' | 'green' | 'slate'
 type StatVariant = 'tinted' | 'panel'

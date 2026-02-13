@@ -3,7 +3,7 @@
 import { useHeatmap } from '@/lib/hooks'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { EmptyState, LoadingSpinner, PageHeader, Panel } from '@/components/ui'
 import 'ol/ol.css'
 import Map from 'ol/Map'
 import View from 'ol/View'
@@ -14,9 +14,6 @@ import OSM from 'ol/source/OSM'
 import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
-import { Panel } from '@/components/ui/Panel'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { EmptyState } from '@/components/ui/EmptyState'
 
 export default function HeatmapPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO)

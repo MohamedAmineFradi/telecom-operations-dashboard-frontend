@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useRole } from '@/lib/role-context'
-import { LoadingState } from '@/components/ui/LoadingState'
+import { LoadingState } from '@/components/ui'
 
 export default function DashboardPage() {
   const router = useRouter()

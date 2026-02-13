@@ -1,7 +1,7 @@
 'use client'
 
 import { notFound } from 'next/navigation'
-import DashboardByRole from '@/components/dashboard/DashboardByRole'
+import { DashboardByRole } from '@/components/dashboard'
 import { UserRole } from '@/lib/types'
 import { useEffect, use } from 'react'
 import { useRole } from '@/lib/role-context'

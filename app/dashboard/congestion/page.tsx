@@ -3,11 +3,9 @@
 import React, { useState, useMemo } from 'react';
 import { useCongestion, useHourlySummary, useGenerateCongestionAlerts } from '@/lib/hooks/useCongestion';
 import { DEFAULT_HOUR_ISO } from '@/lib/time';
-import ProvinceMap3D from '@/components/three/ProvinceMap3D';
-import CongestionMap from '@/components/dashboard/CongestionMap';
-import NetworkMesh from '@/components/dashboard/NetworkMesh';
-import AlertBadge from '@/components/ui/AlertBadge';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ProvinceMap3D } from '@/components/three';
+import { CongestionMap, NetworkMesh } from '@/components/dashboard';
+import { AlertBadge, LoadingSpinner } from '@/components/ui';
 
 export default function CongestionPage() {
     const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO);

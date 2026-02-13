@@ -4,10 +4,7 @@ import { useTopCells } from '@/lib/hooks'
 import Link from 'next/link'
 import { useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
-import { Panel } from '@/components/ui/Panel'
-import { PageHeader } from '@/components/ui/PageHeader'
-import { StatCard } from '@/components/ui/StatCard'
+import { LoadingSpinner, PageHeader, Panel, StatCard } from '@/components/ui'
 
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)

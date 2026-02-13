@@ -1,5 +1,5 @@
 import React from 'react'
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { LoadingSpinner } from './LoadingSpinner'
 
 type SpinnerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 type SpinnerVariant = 'primary' | 'primarySolid' | 'subtle' | 'ring'

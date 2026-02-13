@@ -4,9 +4,8 @@ import React, { useState, useMemo } from 'react';
 import { useProvinceSummaries, useMobilityFlows } from '@/lib/hooks/useMobility';
 import { DEFAULT_HOUR_ISO } from '@/lib/time';
 import { SURVEILLANCE_PROVINCES } from '@/lib/geo/lombardy-provinces';
-import ProvinceFlowCard from '@/components/dashboard/ProvinceFlowCard';
-import { EmptyState } from '@/components/ui/EmptyState';
-import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
+import { ProvinceFlowCard } from '@/components/dashboard';
+import { EmptyState, LoadingSpinner } from '@/components/ui';
 
 export default function MobilityPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO);
