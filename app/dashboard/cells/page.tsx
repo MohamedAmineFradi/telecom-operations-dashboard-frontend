@@ -6,6 +6,7 @@ import { useState } from 'react'
 import { DEFAULT_HOUR_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { Panel } from '@/components/ui/Panel'
+import { PageHeader } from '@/components/ui/PageHeader'
 
 export default function CellsPage() {
   const [timestamp] = useState(DEFAULT_HOUR_ISO)
@@ -15,10 +16,10 @@ export default function CellsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-slate-100">Cell Analytics</h1>
-        <p className="text-slate-400 mt-2">Detailed performance metrics for all network cells</p>
-      </div>
+      <PageHeader
+        title="Cell Analytics"
+        description="Detailed performance metrics for all network cells"
+      />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

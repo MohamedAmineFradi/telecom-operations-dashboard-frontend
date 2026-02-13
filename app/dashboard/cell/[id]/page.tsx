@@ -3,6 +3,7 @@
 import { useCellDetails } from '@/lib/hooks'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { Panel } from '@/components/ui/Panel'
+import { PageHeader } from '@/components/ui/PageHeader'
 import { use } from 'react'
 
 export default function CellDetailPage({
@@ -34,16 +35,14 @@ export default function CellDetailPage({
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-slate-100">Cell {cellId} Details</h1>
-        <p className="text-slate-400 mt-2">
-          {cellDetails.squareId && `Square ${cellDetails.squareId} • `}
-          {cellDetails.centroidY && cellDetails.centroidX
+      <PageHeader
+        title={`Cell ${cellId} Details`}
+        description={`${cellDetails.squareId ? `Square ${cellDetails.squareId} • ` : ''}${
+          cellDetails.centroidY && cellDetails.centroidX
             ? `Coordinates: ${cellDetails.centroidY.toFixed(4)}, ${cellDetails.centroidX.toFixed(4)}`
             : 'Location data unavailable'
-          }
-        </p>
-      </div>
+        }`}
+      />
 
       {/* KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

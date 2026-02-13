@@ -15,6 +15,7 @@ import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 import { Panel } from '@/components/ui/Panel'
+import { PageHeader } from '@/components/ui/PageHeader'
 
 export default function HeatmapPage() {
   const [timestamp, setTimestamp] = useState(DEFAULT_HOUR_ISO)
@@ -89,13 +90,10 @@ export default function HeatmapPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-slate-100">Network Heatmap</h1>
-          <p className="text-slate-400 mt-2">Spatial visualization of network activity</p>
-        </div>
-        
-        <div className="flex space-x-4">
+      <PageHeader
+        title="Network Heatmap"
+        description="Spatial visualization of network activity"
+        rightSlot={
           <input
             type="datetime-local"
             className="px-4 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-200"
@@ -104,8 +102,8 @@ export default function HeatmapPage() {
               setTimestamp(value ? new Date(value).toISOString() : '')
             }}
           />
-        </div>
-      </div>
+        }
+      />
 
       {/* Heatmap container */}
       <Panel>

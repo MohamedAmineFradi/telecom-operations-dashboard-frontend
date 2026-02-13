@@ -5,6 +5,7 @@ import { useResolveAlert, useAlerts } from '@/lib/hooks'
 import type { Alert } from '@/lib/types'
 import { DATA_START_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
+import { PageHeader } from '@/components/ui/PageHeader'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()
@@ -62,10 +63,10 @@ export default function AlertsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-slate-100">Network Alerts</h1>
-        <p className="text-slate-400 mt-2">Real-time anomaly detection and notifications</p>
-      </div>
+      <PageHeader
+        title="Network Alerts"
+        description="Real-time anomaly detection and notifications"
+      />
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
