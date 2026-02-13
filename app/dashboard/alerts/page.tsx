@@ -7,6 +7,7 @@ import { DATA_START_ISO } from '@/lib/time'
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner'
 import { PageHeader } from '@/components/ui/PageHeader'
 import { StatCard } from '@/components/ui/StatCard'
+import { EmptyState } from '@/components/ui/EmptyState'
 
 function AlertCard({ alert }: { alert: Alert }) {
   const resolveMutation = useResolveAlert()
@@ -111,9 +112,7 @@ export default function AlertsPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 text-center">
-            <p className="text-slate-400">No active alerts</p>
-          </div>
+          <EmptyState message="No active alerts" />
         )}
       </div>
 
@@ -131,9 +130,7 @@ export default function AlertsPage() {
             ))}
           </div>
         ) : (
-          <div className="bg-slate-800/50 border border-slate-700 rounded-lg p-8 text-center">
-            <p className="text-slate-400">No resolved alerts</p>
-          </div>
+          <EmptyState message="No resolved alerts" />
         )}
       </div>
     </div>

@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useKeycloak } from '@/lib/keycloak'
 import { LoadingState } from '@/components/ui/LoadingState'
+import { Panel } from '@/components/ui/Panel'
 
 export default function Home() {
   const router = useRouter()
@@ -43,7 +44,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur border border-slate-700 rounded-xl p-8">
+        <Panel padding="lg">
           <h2 className="text-2xl font-semibold text-slate-200 mb-4">Welcome</h2>
           <p className="text-slate-400 mb-6">
             Real-time monitoring and analytics for the Milan telecom network.
@@ -64,7 +65,7 @@ export default function Home() {
               <div className="text-slate-500">Anomaly Detection</div>
             </div>
           </div>
-        </div>
+        </Panel>
 
         <p className="text-xs text-slate-600 mt-8">
           Authenticating... You will be redirected to the dashboard.
